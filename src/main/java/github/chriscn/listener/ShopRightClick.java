@@ -4,7 +4,6 @@ import github.chriscn.VillagerShop;
 import github.chriscn.util.InventoryGUI;
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.economy.EconomyResponse;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -13,9 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.Locale;
 
 public class ShopRightClick implements Listener {
     HashMap<Material, Integer> food = new HashMap<>();
@@ -36,9 +33,10 @@ public class ShopRightClick implements Listener {
                 if (item != null) {
                     if (food.containsKey(item.getType())) {
                         int price = food.get(item.getType());
-                        EconomyResponse r = VillagerShop.getEconomy().withdrawPlayer(player, food.get(item.getType()));
+                        EconomyResponse r = VillagerShop.getEconomy().withdrawPlayer(player, price);
                         if (r.transactionSuccess()) {
                             player.getInventory().addItem(new ItemStack(item.getType()));
+                            player.sendMessage(ChatColor.GREEN + "That cost you " + price);
                         } else {
                             player.sendMessage(ChatColor.RED + "You don't have enough money.");
                         }
