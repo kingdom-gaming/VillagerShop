@@ -36,7 +36,7 @@ public class ShopRightClick implements Listener {
                         EconomyResponse r = VillagerShop.getEconomy().withdrawPlayer(player, price);
                         if (r.transactionSuccess()) {
                             player.getInventory().addItem(new ItemStack(item.getType()));
-                            player.sendMessage(ChatColor.GREEN + "That cost you " + price);
+                            player.sendMessage(ChatColor.GREEN + "You bought " + toDisplayCase(item.getType().name().replaceAll("_", " ")) + " for" + price);
                         } else {
                             player.sendMessage(ChatColor.RED + "You don't have enough money.");
                         }
