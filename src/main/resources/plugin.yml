@@ -1,0 +1,6 @@
+name: VillagerShop
+version: 0.1
+description: VillagerShop
+main: github.chriscn.VillagerShop
+author: Christopher Nethercott
+api-version: 1.16
