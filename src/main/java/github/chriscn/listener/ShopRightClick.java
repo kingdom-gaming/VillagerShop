@@ -20,7 +20,7 @@ public class ShopRightClick implements Listener {
     public ShopRightClick() {
         food.put(Material.CARROT, 3);
         food.put(Material.BAKED_POTATO, 5);
-        food.put(Material.PORKCHOP, 7);
+        food.put(Material.COOKED_PORKCHOP, 7);
         food.put(Material.COOKED_BEEF, 9);
     }
 
