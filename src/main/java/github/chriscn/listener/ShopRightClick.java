@@ -3,6 +3,7 @@ package github.chriscn.listener;
 import github.chriscn.VillagerShop;
 import github.chriscn.util.InventoryGUI;
 import net.md_5.bungee.api.ChatColor;
+import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
@@ -17,16 +18,13 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class ShopRightClick implements Listener {
-    HashMap<Material, BigDecimal> food = new HashMap<>();
+    HashMap<Material, Integer> food = new HashMap<>();
 
-    VillagerShop plugin;
-    public ShopRightClick(VillagerShop instance) {
-        this.plugin = instance;
-
-        food.put(Material.CARROT, new BigDecimal(3.00));
-        food.put(Material.BAKED_POTATO, new BigDecimal(5.00));
-        food.put(Material.PORKCHOP, new BigDecimal(7.00));
-        food.put(Material.COOKED_BEEF, new BigDecimal(9.00));
+    public ShopRightClick() {
+        food.put(Material.CARROT, 3);
+        food.put(Material.BAKED_POTATO, 5);
+        food.put(Material.PORKCHOP, 7);
+        food.put(Material.COOKED_BEEF, 9);
     }
 
     @EventHandler
@@ -35,7 +33,18 @@ public class ShopRightClick implements Listener {
             Player player = event.getPlayer();
             //player.sendMessage(ChatColor.GREEN + "You right clicked a villager");
             InventoryGUI gui = new InventoryGUI("Villager Shop", 3, (clicker, menu, row, slot, item) -> {
-                return true;
+                if (item != null) {
+                    if (food.containsKey(item.getType())) {
+                        int price = food.get(item.getType());
+                        EconomyResponse r = VillagerShop.getEconomy().withdrawPlayer(player, food.get(item.getType()));
+                        if (r.transactionSuccess()) {
+                            player.getInventory().addItem(new ItemStack(item.getType()));
+                        } else {
+                            player.sendMessage(ChatColor.RED + "You don't have enough money.");
+                        }
+                    }
+                    return false;
+                } else return true; // keep inventory open if clicked elsewhere
             });
 
             int i = 1;
@@ -50,7 +59,6 @@ public class ShopRightClick implements Listener {
     }
 
     public static String toDisplayCase(String s) {
-
         final String ACTIONABLE_DELIMITERS = " '-/"; // these cause the character following
         // to be capitalized
 

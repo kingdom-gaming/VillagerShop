@@ -4,3 +4,4 @@ description: VillagerShop
 main: github.chriscn.VillagerShop
 author: Christopher Nethercott
 api-version: 1.16
+depend: [Vault]
