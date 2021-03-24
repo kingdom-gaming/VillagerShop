@@ -1,5 +1,5 @@
-# kg-interview
-This repo contains my interview code for `Kingdom Gaming`.
+# VillagerShop
+This was my interview program for this network.
 ## Brief
 - We have an open shop in the SMP spawn, we want to convert this into a shop where you can exchange money for food.
 - Put a villager in the shop, when clicked on display menu, with food you can buy for in game money.
