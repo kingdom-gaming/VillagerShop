@@ -12,5 +12,3 @@ This was my interview program for this network.
 - Custom items depending on your rank, (eula?)
 - Only work in custom worlds
 - Only work for certain permission `villageshop.use`
-## License
-This work is my own, and as such should not be copy or distrubuted without my permission.
